@@ -1,19 +1,21 @@
-import { getAuthSession } from "@/lib/auth";
+import { getuserID } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic"
+
 const settingsUrl = process.env.NEXTAUTH_URL + '/settings'
 export async function GET() {
     try {
-        const session = await getAuthSession()
-        if (!session?.user) {
+        const userId = await getuserID()
+        if (!userId) {
             return new NextResponse('unauthorized user', { status: 401 })
         }
 
         const userSubscription = await prisma.userSubscription.findUnique({
             where: {
-                userId: session.user.id
+                userId: userId
             }
         })
         // cancel sunbscription or manage subscription
@@ -35,7 +37,7 @@ export async function GET() {
             payment_method_types: ['card'],
             mode: "subscription",
             billing_address_collection: 'auto',
-            customer_email: session.user.email ?? '',
+            //customer_email: userId ?? '',
             line_items: [
                 {
                     price_data: {
@@ -53,7 +55,7 @@ export async function GET() {
                 }
             ],
             metadata: {
-                userId: session.user.id,
+                userId: userId,
             },
         })
         return NextResponse.json({ url: stripeSession.url })

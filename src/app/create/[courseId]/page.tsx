@@ -1,5 +1,5 @@
 import ConfirmChapters from '@/components/ConfirmChapters';
-import { getAuthSession } from '@/lib/auth';
+import { getuserID } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { InfoIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';
@@ -12,8 +12,9 @@ type Props = {
 }
 
 const CreateChapters = async ({ params: { courseId } }: Props) => {
-  const session = await getAuthSession()
-  if (!session?.user) {
+  const userId = await getuserID()
+  console.log("This the user ID",userId)
+  if (!userId) {
     return redirect("/gallery")
   }
   const course = await prisma.course.findUnique({

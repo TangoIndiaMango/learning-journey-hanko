@@ -1,4 +1,4 @@
-
+"use client"
 import { Chapter, Course, Unit } from '@prisma/client';
 import React, { useEffect, useMemo, useState } from 'react';
 import ChapterCard, { ChapterCardHandler } from './ChapterCard';

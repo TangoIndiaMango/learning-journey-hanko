@@ -1,14 +1,15 @@
 import CreateCourseForm from '@/components/CreateCourseForm'
-import { getAuthSession } from '@/lib/auth'
+import { getuserID } from '@/lib/auth'
 import { InfoIcon } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
 type Props = {}
+export const dynamic = "force-dynamic"
 
 const CreatePage = async (props: Props) => {
-    const session = await getAuthSession()
-    if (!session?.user) {
+    const userId = await getuserID()
+    if (!userId) {
         return redirect("/gallery")
     }
     return (
@@ -23,7 +24,7 @@ const CreatePage = async (props: Props) => {
                 </div>
             </div>
 
-            <CreateCourseForm/>
+            <CreateCourseForm />
         </div>
     )
 }

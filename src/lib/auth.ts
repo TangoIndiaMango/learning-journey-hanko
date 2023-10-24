@@ -1,61 +1,33 @@
-import { DefaultSession, NextAuthOptions, getServerSession } from "next-auth";
-import { prisma } from "./db";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import GoogleProvider from 'next-auth/providers/google'
-declare module 'next-auth' {
-    interface Session extends DefaultSession {
-        user: {
-            id: string;
-            credits: number;
-        } & DefaultSession['user']
-    }
-}
+import { cookies } from "next/headers";
+import * as jose from "jose";
+import { redirect } from "next/navigation";
+import { cache } from "react";
 
-declare module 'next-auth/jwt' {
-    interface JWT {
-        id: string,
-        credits: number;
-    }
-}
-export const authOptions: NextAuthOptions = {
-    session: {
-        strategy: 'jwt'
-    },
-    callbacks: {
-        jwt: async ({ token }) => {
-            const db_user = await prisma.user.findFirst({
-                where: {
-                    email: token.email
-                }
-            })
-            if (db_user) {
-                token.id = db_user.id
-                token.credits = db_user.credits as number
-            }
-            return token
-        },
-        session: ({ session, token }) => {
-            if (token) {
-                session.user.id = token.id;
-                session.user.name = token.name;
-                session.user.email = token.email;
-                session.user.image = token.picture;
-                session.user.credits = token.credits;
-            }
-            return session
-        }
 
-    },
-    secret: process.env.NEXTAUTH_SECRET as string,
-    adapter: PrismaAdapter(prisma),
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        })
-    ]
-}
+// export const runtime = "edge";
+export const dynamic = "force-dynamic"
+export const revalidate = 3600
 
-export const getAuthSession = () => {
-    return getServerSession(authOptions);
-};
+export const getuserID = cache(async () => {
+
+  try {
+    const token = cookies().get("hanko")?.value;
+    const payload = jose.decodeJwt(token ?? "");
+    // console.log(payload)
+    return payload.sub;
+  } catch (error) {
+    console.log(error)
+    redirect("/login")
+  }
+})
+
+//const userID = await userId();
+
+
+// const hanko = new Hanko(hankoApi);
+
+// const { id, email } = await hanko.user.getCurrent();
+// console.log(`user-id: ${id}, email: ${email}`);
+// if (!id) {
+//     redirect("/login")
+// }

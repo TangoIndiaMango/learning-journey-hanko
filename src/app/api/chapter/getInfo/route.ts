@@ -66,7 +66,7 @@ export async function POST(req: Request, res: Response) {
                 summary: summary,
             }
         })
-        console.log({summary, questions, transcript})
+        console.log({ summary, questions, transcript })
         return NextResponse.json({ success: true })
 
     } catch (error) {

@@ -1,29 +1,30 @@
-
 import React from 'react'
 import { Avatar, AvatarFallback } from './ui/avatar'
-import { User } from 'next-auth'
 import Image from 'next/image'
+import { User } from '@teamhanko/hanko-elements'
+import { User2 } from 'lucide-react'
 
 type Props = {
-    user: User
+    user: any
 }
 
-const UserAvatar = ({user}: Props) => {
-  return (
-    <>
-    <Avatar>
-    {user.image? (
-        <div className="relative w-full h-full aspect-square">
-            <Image fill src={user.image} alt='user-profile' referrerPolicy='no-referrer'/>
-        </div>
-    ): (
-        <AvatarFallback>
-            <span className="sr-only">{user?.name}</span>
-        </AvatarFallback>
-    )}
-    </Avatar>
-    </>
-  )
+const UserAvatar = ({ user }: Props) => {
+    return (
+        <>
+            <Avatar>
+                {user ? (
+                    <div className="flex items-center justify-center bg-secondary-foreground/80 w-full h-full aspect-square">
+                        {/* <Image src="" alt='user-profile' referrerPolicy='no-referrer' layout="fill" /> */}
+                        <User2 className='w-4 h-4 text-white'/>
+                    </div>
+                ) : (
+                    <AvatarFallback>
+                        <span className="sr-only">{`User Name`}</span>
+                    </AvatarFallback>
+                )}
+            </Avatar>
+        </>
+    )
 }
 
 export default UserAvatar

@@ -16,6 +16,7 @@ import axios from 'axios'
 import { useToast } from './ui/use-toast'
 import { useRouter } from 'next/navigation'
 import SubscriptionAction from './SubscriptionAction'
+import ProgressBar from './ProgressBar'
 
 
 type Props = {}
@@ -153,7 +154,7 @@ const CreateCourseForm = (props: Props) => {
                     <Button type="submit" size="lg" disabled={isPending} className='w-full mt-6 '> Go 🔥  </Button>
                 </form>
             </Form>
-
+            {/* <ProgressBar/> */}
             <SubscriptionAction />
         </div>
     )
