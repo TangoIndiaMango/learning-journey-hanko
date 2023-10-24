@@ -1,5 +1,6 @@
 import CourseSideBar from '@/components/CourseSideBar'
 import MainVideoSummary from '@/components/MainVideoSummary'
+import Navbar from '@/components/Navbar'
 import QuizCards from '@/components/QuizCards'
 import { Separator } from '@/components/ui/separator'
 import { prisma } from '@/lib/db'
@@ -29,7 +30,7 @@ const CoursePge = async ({ params: { slug } }: Props) => {
         }
     })
     if (!course) {
-        return redirect("/gallry")
+        return redirect("/gallery")
 
     }
     let unitIndex = parseInt(unitIndexParam)
@@ -49,47 +50,50 @@ const CoursePge = async ({ params: { slug } }: Props) => {
     const prevChapter = unit.chapters[chapterIndex - 1]
 
     return (
-        <div className=''>
-            <CourseSideBar course={course} currentChaterId={chapter.id} />
+        <>
+            <Navbar />
 
-            <div>
-                <div className='ml-[400px] px-8'>
-                    <div className='flex'>
-                        <MainVideoSummary chapter={chapter} chapterIndex={chapterIndex} unit={unit} unitIndex={unitIndex} />
-                        <QuizCards chapter={chapter} />
-                    </div>
+            <div className=''>
+                <CourseSideBar course={course} currentChaterId={chapter.id} />
 
-                    <div className='flex-[1] h-[1px] mt-4 text-gray-500 bg-gray-500'></div>
-                    <div className='flex pb-8'>
-                        {prevChapter && (
-                            <Link href={`/course/${course.id}/${unitIndex}/${chapterIndex - 1}`} className='flex mt-4 mr-auto w-fit'>
-                                <div className='flex items-center'>
-                                    <ChevronLeft className='w-6 h-6 mr-2' />
-                                    <div className='flex flex-col items-start'>
-                                        <span className='text-sm text-secondary-foreground/60'>Previous</span>
-                                        <span className='text-xl font-bold'>{prevChapter.name}</span>
+                <div>
+                    <div className='ml-[400px] px-8'>
+                        <div className='flex'>
+                            <MainVideoSummary chapter={chapter} chapterIndex={chapterIndex} unit={unit} unitIndex={unitIndex} />
+                            <QuizCards chapter={chapter} />
+                        </div>
+
+                        <div className='flex-[1] h-[1px] mt-4 text-gray-500 bg-gray-500'></div>
+                        <div className='flex pb-8'>
+                            {prevChapter && (
+                                <Link href={`/course/${course.id}/${unitIndex}/${chapterIndex - 1}`} className='flex mt-4 mr-auto w-fit'>
+                                    <div className='flex items-center'>
+                                        <ChevronLeft className='w-6 h-6 mr-2' />
+                                        <div className='flex flex-col items-start'>
+                                            <span className='text-sm text-secondary-foreground/60'>Previous</span>
+                                            <span className='text-xl font-bold'>{prevChapter.name}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
-                        )}
+                                </Link>
+                            )}
 
-                        {nextChapter && (
-                            <Link href={`/course/${course.id}/${unitIndex}/${chapterIndex + 1}`} className='flex mt-4 ml-auto w-fit'>
-                                <div className='flex items-center'>
-                                    <div className='flex flex-col items-start'>
-                                        <span className='text-sm text-secondary-foreground/60'>Next</span>
-                                        <span className='text-xl font-bold'>{nextChapter.name}</span>
+                            {nextChapter && (
+                                <Link href={`/course/${course.id}/${unitIndex}/${chapterIndex + 1}`} className='flex mt-4 ml-auto w-fit'>
+                                    <div className='flex items-center'>
+                                        <div className='flex flex-col items-start'>
+                                            <span className='text-sm text-secondary-foreground/60'>Next</span>
+                                            <span className='text-xl font-bold'>{nextChapter.name}</span>
+                                        </div>
+                                        <ChevronRight className='w-6 h-6 mr-2' />
                                     </div>
-                                    <ChevronRight className='w-6 h-6 mr-2' />
-                                </div>
-                            </Link>
-                        )}
-                    </div>
+                                </Link>
+                            )}
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </>
     )
 }
 

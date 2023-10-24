@@ -8,6 +8,7 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+    --font-family: 'Lexend', sans-serif;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -46,6 +47,7 @@
 
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
+    --font-family: 'Lexend', sans-serif;
 
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
@@ -136,4 +138,25 @@ hanko-auth::part(secondary-button) {
 
 hanko-auth::part(divider) {
   margin: 24px 0;
+}
+
+/* CSS */
+.bg-gradient-animate {
+  font-family: 'Lexend', sans-serif;
+  background: linear-gradient(45deg, #fff, #a333ea);
+  background-size: 200% 200%;
+  animation: gradientFlow 4s ease 5;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background: #a16ecf;
+
+    background-position: 100% 0;
+  }
+
+  100% {
+    
+    background-position: -100% 0;
+  }
 }

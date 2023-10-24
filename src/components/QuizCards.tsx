@@ -46,8 +46,8 @@ const QuizCards = ({ chapter }: Props) => {
                     return (
                         <div key={question.id} className={cn(
                             'p-3 mt-4 border border-secondary rounded-lg', {
-                                'bg-green-700': questionState[question.id] === true,
-                                'bg-red-700': questionState[question.id] === false,
+                                'bg-green-500': questionState[question.id] === true,
+                                'bg-red-500': questionState[question.id] === false,
                                 'bg-secondary': questionState[question.id] === null,
 
                             }

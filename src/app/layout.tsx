@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
-import { Lexend } from 'next/font/google'
 import './globals.css'
+import { Lexend } from 'next/font/google';
 import { cn } from '@/lib/utils'
-import Navbar from '@/components/Navbar'
 import { Provider } from '@/components/Providers'
 import { Toaster } from '@/components/ui/toaster'
 
-const lexend = Lexend({ subsets: ['latin'] })
 export const dynamic = "force-dynamic"
+const lexend = Lexend({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Learning Journey',
   description: 'A journey app',
@@ -21,10 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(
-        lexend.className, 'antialiased min-h-screen pt-16'
+        lexend.className, 'antialiased'
       )}>
         <Provider>
-          <Navbar/>
+
           {children}
           <Toaster />
         </Provider>
