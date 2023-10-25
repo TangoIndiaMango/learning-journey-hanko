@@ -1,5 +1,6 @@
 // /api/course/createChapters
 
+import { getuserID } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { strict_output } from "@/lib/gpt";
 import { getUnsplashImage } from "@/lib/unsplash";
@@ -8,8 +9,10 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 export async function POST(req: Request, res: Response) {
+    const userId = await getuserID()
     try {
         const body = await req.json()
+        
         const { title, units } = createChaptersSchema.parse(body)
 
         type outputUnits = {
@@ -46,6 +49,7 @@ export async function POST(req: Request, res: Response) {
             data: {
                 name: title,
                 image: course_image,
+                userId: userId as any
             },
         });
 
