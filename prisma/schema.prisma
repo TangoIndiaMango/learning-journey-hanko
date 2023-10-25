@@ -30,15 +30,21 @@ model User {
   credits       Int?      @default(10)
   userId        String?   @unique
   sessions      Session[]
+  // Add a field to represent the user's courses
+  courses       Course[]
+  
 }
 
-// course can have muliple units
-
+//corses can have multiple units
 model Course {
-  id    String @id @default(cuid())
-  name  String
-  image String
-  units Unit[]
+  id     String @id @default(cuid())
+  name   String
+  image  String
+  // Add a field to represent the user who owns the course
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  units  Unit[]
+  @@index([userId], name:"userId")
 }
 
 // unit contains chapter

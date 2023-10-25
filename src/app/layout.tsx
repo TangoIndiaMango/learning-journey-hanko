@@ -8,7 +8,7 @@ import { Toaster } from '@/components/ui/toaster'
 export const dynamic = "force-dynamic"
 const lexend = Lexend({ subsets: ['latin'] })
 export const metadata: Metadata = {
-  title: 'Learning Journey',
+  title: 'Learning Odyssey',
   description: 'A journey app',
 }
 

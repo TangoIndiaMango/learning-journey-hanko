@@ -12,7 +12,7 @@ const GalleryPage = async (props: Props) => {
     const courses = await prisma.course.findMany({
 
         where: {
-            id: userId
+            userId: userId
         },
         include: {
             units: {
