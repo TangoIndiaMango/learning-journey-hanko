@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(
-        lexend.className, 'antialiased'
+        lexend.className, 'antialiased overflow-y-auto'
       )}>
         <Provider>
 

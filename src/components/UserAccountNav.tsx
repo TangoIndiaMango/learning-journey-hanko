@@ -48,9 +48,9 @@ const UserAccountNav = ({ user }: Props) => {
           <UserAvatar user={user} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {/* <div className="flex items-center justify-start gap-2 p-2"> */}
+          <div className="overflow-y-auto">
           <HankoProfile />
-          {/* </div> */}
+          </div>
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={logout}
             className="flex items-center justify-center text-red-600 cursor-pointer"
