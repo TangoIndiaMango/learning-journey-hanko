@@ -29,11 +29,11 @@ const Navbar = () => {
                     </p>
                 </Link>
                 <div className='flex items-center'>
-                    <Link href="/gallery" className='mr-3 rounded-lg border-3 shadow-lg px-3 py-1 text-lg font-semibold transition-all hover:translate-y-[2px] md:block dark:border-white' > Gallery </Link>
+                    <Link href="/gallery" className='mr-3 rounded-lg border-3 shadow-lg px-3 py-1 text-md font-semibold transition-all hover:translate-y-[2px] md:block dark:border-white' > Gallery </Link>
                     {session && ( 
                         
                         <>
-                            <Link href="/create" className='mr-3 rounded-lg font-semibold border-3 shadow-lg px-3 py-1 text-lg transition-all hover:translate-y-[2px] md:block dark:border-white'> Create Course</Link>
+                            <Link href="/create" className='mr-3 rounded-lg font-semibold border-3 shadow-lg px-3 py-1 text-md transition-all hover:translate-y-[2px] md:block dark:border-white'> Create Course</Link>
                             
                         </>
                     )}
