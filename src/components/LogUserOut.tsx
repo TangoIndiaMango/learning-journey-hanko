@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Hanko } from "@teamhanko/hanko-elements";
+import HankoError from "./HankoError";
 
 const hankoApi = process.env.NEXT_PUBLIC_HANKO_API_URL;
 
@@ -24,6 +25,7 @@ export function LogUserOut() {
       return;
     } catch (error) {
       console.error("Error during logout:", error);
+      return < HankoError />
     }
   };
 
